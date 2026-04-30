@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Joining Roblox...</title>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                background: #1a1a2e;
+                color: #e0e0e0;
+            }
+            #text {
+                text-align: center;
+                font-size: 1.2rem;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="text">Connecting to Roblox...</div>
+
+        <script>
+            function setText(content) {
+                document.getElementById("text").innerText = content;
+            }
+
+            function onLoad() {
+                const query = new URLSearchParams(window.location.search);
+
+                const placeId = query.get("pid");
+                const jobId = query.get("jid");
+
+                if (!placeId) return setText("Invalid placeId");
+
+                const deeplinkParams = new URLSearchParams({ placeId: placeId });
+                if (jobId) deeplinkParams.set("gameInstanceId", jobId);
+
+                window.location.replace("roblox://" + deeplinkParams);
+            }
+
+            window.onload = onLoad;
+        </script>
+    </body>
+</html>
